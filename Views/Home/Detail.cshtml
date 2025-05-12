@@ -1,63 +1,182 @@
-@model ShoppingCart
+@model Week2.Models.ShoppingCart
 
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "Book Details - " + Model.Book.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    double price5Percent = Model.Book.Price * 0.95;
+    double price10Percent = Model.Book.Price * 0.90;
+    
+    double savings5Percent = Model.Book.Price - price5Percent;
+    double savings10Percent = Model.Book.Price - price10Percent;
+    
+    string isbn = "978-" + (1000000000 + Model.Book.Id).ToString();
+    int pageCount = 100 + (Model.Book.Id * 50);
+    
+    string description = "This comprehensive book covers all aspects of the subject matter in great detail. " +
+                        "Written by " + Model.Book.Author + ", this book is perfect for students and professionals alike. " +
+                        "Published in " + Model.Book.PublishYear + ", it contains the latest research and developments in the field.";
 }
 
 <div class="container">
-    <h2 class="mb-4">DETAIL</h2>
+    <h2 class="mb-4">BOOK DETAILS</h2>
 
-    <div class="card mb-4">
+    <div class="card mb-4 shadow">
         <div class="card-header bg-dark text-white p-3">
-            <h5 class="mb-0">@Model.Book.Title</h5>
-            <div class="text-muted">Author: @Model.Book.Author</div>
+            <h4 class="mb-0">@Model.Book.Title</h4>
+            <div class="text-light">by @Model.Book.Author</div>
         </div>
         
         <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-12">
-                    <div class="text-muted">AUTHOR: @Model.Book.Author</div>
-                    <div class="text-muted">PRICE: $@Model.Book.Price.ToString("0.00")</div>
+            <div class="row mb-4">
+                <!-- Book Cover Image -->
+                <div class="col-md-4 text-center mb-3">
+                    <img src="/@Model.Book.Cover" alt="@Model.Book.Title" class="img-fluid rounded shadow" style="max-height: 300px;" />
+                </div>
+                
+                <!-- Book Information -->
+                <div class="col-md-8">
+                    <h5 class="border-bottom pb-2 mb-3">Book Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong><i class="bi bi-person-fill me-2"></i>Author:</strong> @Model.Book.Author</p>
+                            <p><strong><i class="bi bi-tag-fill me-2"></i>Category:</strong> @Model.Book.Category?.Name</p>
+                            <p><strong><i class="bi bi-calendar-fill me-2"></i>Publication Year:</strong> @Model.Book.PublishYear</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="bi bi-upc-scan me-2"></i>ISBN:</strong> @isbn</p>
+                            <p><strong><i class="bi bi-book-fill me-2"></i>Pages:</strong> @pageCount</p>
+                            <p><strong><i class="bi bi-currency-dollar me-2"></i>Price:</strong> $@Model.Book.Price.ToString("0.00")</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">1-50</th>
-                        <th scope="col">51-100</th>
-                        <th scope="col">100+</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Price</th>
-                        <td>@Model.Book.Price.ToString("0.00")</td>
-                        <td>@Model.Book.Price.ToString("0.00")</td>
-                        <td>@Model.Book.Price.ToString("0.00")</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="mb-3">
-                <div class="form-group">
-                    <label for="Count">COUNT</label>
-                    <input asp-for="Count" class="form-control" />
+            
+            <!-- Book Description -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2 mb-3"><i class="bi bi-info-circle-fill me-2"></i>Description</h5>
+                    <p class="text-muted">@description</p>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-2">
-                    <a asp-action="Index" class="btn btn-success w-100">BACK TO LIST</a>
+            
+            <!-- Pricing Table -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2 mb-3"><i class="bi bi-cash-stack me-2"></i>Pricing</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">1-50</th>
+                                    <th scope="col">51-100</th>
+                                    <th scope="col">100+</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Price</th>
+                                    <td>$@Model.Book.Price.ToString("0.00")</td>
+                                    <td>$@price5Percent.ToString("0.00") <span class="badge bg-success">5% off</span></td>
+                                    <td>$@price10Percent.ToString("0.00") <span class="badge bg-success">10% off</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">You Save</th>
+                                    <td>$0.00</td>
+                                    <td>$@savings5Percent.ToString("0.00")</td>
+                                    <td>$@savings10Percent.ToString("0.00")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-2">
-                    <form method="post">
-                        <button type="submit" class="btn btn-dark w-100">ADD TO CART</button>
+            </div>
+            
+            <!-- Order Form -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2 mb-3"><i class="bi bi-cart-fill me-2"></i>Order</h5>
+                    <form method="post" id="orderForm">
+                        <input type="hidden" name="BookId" value="@Model.Book.Id" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="Count" class="form-label">Quantity</label>
+                                    <input asp-for="Count" class="form-control" id="quantity" min="1" max="1000" value="1" required />
+                                    <div class="invalid-feedback">
+                                        Please enter a quantity between 1 and 1000.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="totalPrice" class="form-label">Total Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" id="totalPrice" readonly value="@Model.Book.Price.ToString("0.00")" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-2">
+                                <a asp-action="Index" class="btn btn-outline-secondary w-100">
+                                    <i class="bi bi-arrow-left me-2"></i>Back to List
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <button type="submit" class="btn btn-primary w-100 shadow">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Function to calculate total price based on quantity
+            function calculateTotal() {
+                var quantity = parseInt($("#quantity").val());
+                var basePrice = @Model.Book.Price;
+                var totalPrice = 0;
+                
+                // Apply discount based on quantity
+                if (quantity > 100) {
+                    totalPrice = quantity * basePrice * 0.9; // 10% discount
+                } else if (quantity > 50) {
+                    totalPrice = quantity * basePrice * 0.95; // 5% discount
+                } else {
+                    totalPrice = quantity * basePrice;
+                }
+                
+                // Update total price field
+                $("#totalPrice").val(totalPrice.toFixed(2));
+            }
+            
+            // Calculate total when quantity changes
+            $("#quantity").on("input", function() {
+                calculateTotal();
+            });
+            
+            // Form validation
+            $("#orderForm").on("submit", function(e) {
+                var quantity = parseInt($("#quantity").val());
+                if (isNaN(quantity) || quantity < 1 || quantity > 1000) {
+                    e.preventDefault();
+                    $("#quantity").addClass("is-invalid");
+                } else {
+                    $("#quantity").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
+}

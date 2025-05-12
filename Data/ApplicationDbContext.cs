@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Week2.Models;
 
 namespace Week2.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -13,6 +14,7 @@ namespace Week2.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<BookImages> BookImages { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +29,9 @@ namespace Week2.Data
             modelBuilder.Entity<BookImages>()
                 .HasOne(bi => bi.Book)
                 .WithMany(b => b.Images)
-                .HasForeignKey(bi => bi.BookId);            // Seed data for categories
+                .HasForeignKey(bi => bi.BookId);
+
+            // Seed data for categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Fiction" },
                 new Category { Id = 2, Name = "Non-Fiction" },

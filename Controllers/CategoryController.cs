@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Week2.Models;
 using Week2.Repositories.Interfaces;
 
 namespace Week2.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -13,11 +15,13 @@ namespace Week2.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_categoryRepository.GetAll());
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var category = _categoryRepository.GetById(id);

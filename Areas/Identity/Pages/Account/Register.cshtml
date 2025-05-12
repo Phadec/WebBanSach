@@ -1,0 +1,52 @@
+@page
+@model Week2.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-body p-4">
+                    <h4 class="text-uppercase fw-bold mb-4">REGISTER</h4>
+                    <h6 class="text-uppercase mb-4">CREATE A NEW ACCOUNT.</h6>
+                    
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-4">
+                            <input asp-for="Input.Name" class="form-control py-2" placeholder="Name" autocomplete="name" aria-required="true" />
+                            <span asp-validation-for="Input.Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <input asp-for="Input.Email" class="form-control py-2" placeholder="Email" autocomplete="username" aria-required="true" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <input asp-for="Input.Password" class="form-control py-2" placeholder="Password" autocomplete="new-password" aria-required="true" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <input asp-for="Input.ConfirmPassword" class="form-control py-2" placeholder="Confirm password" autocomplete="new-password" aria-required="true" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mb-4">
+                            <button id="registerSubmit" type="submit" class="btn btn-dark py-2 text-uppercase">REGISTER</button>
+                        </div>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-muted">
+                        <h6 class="text-uppercase mb-3">USE ANOTHER SERVICE TO REGISTER.</h6>
+                        <p>There are no external authentication services configured. See the <a href="#" class="text-decoration-none">article about setting up this ASP.NET application</a> to support logging in via external services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

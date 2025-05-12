@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Week2.Models;
 using Week2.Repositories.Interfaces;
 
 namespace Week2.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -16,12 +18,14 @@ namespace Week2.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var books = _bookRepository.GetAll();
             return View(books);
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var book = _bookRepository.GetById(id);

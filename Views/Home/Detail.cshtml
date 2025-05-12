@@ -1,0 +1,63 @@
+@model ShoppingCart
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="mb-4">DETAIL</h2>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white p-3">
+            <h5 class="mb-0">@Model.Book.Title</h5>
+            <div class="text-muted">Author: @Model.Book.Author</div>
+        </div>
+        
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="text-muted">AUTHOR: @Model.Book.Author</div>
+                    <div class="text-muted">PRICE: $@Model.Book.Price.ToString("0.00")</div>
+                </div>
+            </div>
+
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">1-50</th>
+                        <th scope="col">51-100</th>
+                        <th scope="col">100+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Price</th>
+                        <td>@Model.Book.Price.ToString("0.00")</td>
+                        <td>@Model.Book.Price.ToString("0.00")</td>
+                        <td>@Model.Book.Price.ToString("0.00")</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mb-3">
+                <div class="form-group">
+                    <label for="Count">COUNT</label>
+                    <input asp-for="Count" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <a asp-action="Index" class="btn btn-success w-100">BACK TO LIST</a>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <form method="post">
+                        <button type="submit" class="btn btn-dark w-100">ADD TO CART</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

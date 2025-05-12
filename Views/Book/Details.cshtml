@@ -1,0 +1,60 @@
+@model Week2.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<h1>Book Details</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="@Url.Content("~/" + Model.Cover)" class="img-fluid" alt="@Model.Title">
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">@Model.Title</h3>
+                <dl class="row">
+                    <dt class="col-sm-3">Author</dt>
+                    <dd class="col-sm-9">@Model.Author</dd>
+                    
+                    <dt class="col-sm-3">Publication Year</dt>
+                    <dd class="col-sm-9">@Model.PublishYear</dd>
+                    
+                    <dt class="col-sm-3">Price</dt>
+                    <dd class="col-sm-9">$@Model.Price.ToString("0.00")</dd>
+                    
+                    <dt class="col-sm-3">Category</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.Category != null)
+                        {
+                            <a asp-controller="Category" asp-action="Details" asp-route-id="@Model.CategoryId">@Model.Category.Name</a>
+                        }
+                        else
+                        {
+                            <span>No category assigned</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning">Update</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Images != null && Model.Images.Any())
+{
+    <h3 class="mt-4">Additional Images</h3>
+    <div class="row">
+        @foreach (var image in Model.Images)
+        {
+            <div class="col-md-3 mb-3">
+                <p class="text-muted small">Image path: "@image.Url"</p>
+                <img src="@Url.Content("~/" + image.Url)" class="img-thumbnail" alt="Book image" />
+            </div>
+        }
+    </div>
+}

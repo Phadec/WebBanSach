@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "D:\\WebBanSach\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Week2.bundle.scp.css",
-      "PackagePath": "staticwebassets\\Week2.xlbab72xft.bundle.scp.css"
+      "PackagePath": "staticwebassets\\Week2.bundle.scp.css"
     },
     {
       "Id": "D:\\WebBanSach\\wwwroot\\css\\bootswatch.css",
@@ -63,6 +63,22 @@
     {
       "Id": "D:\\WebBanSach\\wwwroot\\images\\medical9.jpg",
       "PackagePath": "staticwebassets\\images\\medical9.jpg"
+    },
+    {
+      "Id": "D:\\WebBanSach\\wwwroot\\images\\tiki1.jpg",
+      "PackagePath": "staticwebassets\\images\\tiki1.jpg"
+    },
+    {
+      "Id": "D:\\WebBanSach\\wwwroot\\images\\tiki2.jpg",
+      "PackagePath": "staticwebassets\\images\\tiki2.jpg"
+    },
+    {
+      "Id": "D:\\WebBanSach\\wwwroot\\images\\tiki3.jpg",
+      "PackagePath": "staticwebassets\\images\\tiki3.jpg"
+    },
+    {
+      "Id": "D:\\WebBanSach\\wwwroot\\images\\tiki4.webp",
+      "PackagePath": "staticwebassets\\images\\tiki4.webp"
     },
     {
       "Id": "D:\\WebBanSach\\wwwroot\\images\\vietnamese1.jpg",
@@ -315,10 +331,6 @@
     {
       "Id": "D:\\WebBanSach\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
-    },
-    {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Week2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
-      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Week2.Microsoft.AspNetCore.StaticWebAssets.props",

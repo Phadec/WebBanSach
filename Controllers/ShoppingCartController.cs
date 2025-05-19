@@ -108,7 +108,7 @@ namespace Week2.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Checkout", "ShoppingCart") });
                 }
                 
                 // Tạo Order

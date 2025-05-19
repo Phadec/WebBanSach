@@ -167,6 +167,43 @@ namespace Week2.Data
                     Price = 64.99, 
                     Cover = "images/medical10.jpg",
                     CategoryId = 4
+                },
+                // New books from image
+                new Book { 
+                    Id = 20, 
+                    Title = "Nhật ký Đặng Thủy Trâm", 
+                    Author = "Đặng Thủy Trâm", 
+                    PublishYear = 2005, 
+                    Price = 64.800, 
+                    Cover = "images/vietnamese/nhat-ky-dang-thuy-tram.jpg",
+                    CategoryId = 2  // Non-Fiction
+                },
+                new Book { 
+                    Id = 21, 
+                    Title = "Thay Đổi Tí Hon - Hiệu Quả Bất Ngờ Atomic Habits", 
+                    Author = "James Clear", 
+                    PublishYear = 2019, 
+                    Price = 143.000, 
+                    Cover = "images/vietnamese/atomic-habits.jpg",
+                    CategoryId = 2  // Non-Fiction
+                },
+                new Book { 
+                    Id = 22, 
+                    Title = "Ngàn Mặt Trời Rực Rỡ", 
+                    Author = "Khaled Hosseini", 
+                    PublishYear = 2018, 
+                    Price = 99.600, 
+                    Cover = "images/vietnamese/ngan-mat-troi-ruc-ro.jpg",
+                    CategoryId = 1  // Fiction
+                },
+                new Book { 
+                    Id = 23, 
+                    Title = "Dám Đặt Một Bầy Sói Hay Chăn Một Bầy Cừu", 
+                    Author = "Daniel Goleman", 
+                    PublishYear = 2020, 
+                    Price = 134.000, 
+                    Cover = "images/vietnamese/dam-dat-mot-bay-soi.jpg",
+                    CategoryId = 2  // Non-Fiction
                 }
             );
         }

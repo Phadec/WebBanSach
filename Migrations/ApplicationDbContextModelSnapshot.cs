@@ -381,56 +381,6 @@ namespace Week2.Migrations
                             Price = 64.989999999999995,
                             PublishYear = 2022,
                             Title = "Diseases of the Human Body"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Author = "CLINT EMERSON",
-                            CategoryId = 2,
-                            Cover = "images/vietnamese1.jpg",
-                            Price = 99000.0,
-                            PublishYear = 2022,
-                            Title = "100 Kỹ Năng Sinh Tồn"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Author = "CAO MINH",
-                            CategoryId = 2,
-                            Cover = "images/vietnamese2.jpg",
-                            Price = 163250.0,
-                            PublishYear = 2022,
-                            Title = "Thiên Tài Bên Trái, Kẻ Điên Bên Phải"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Author = "EMILIE ARIES",
-                            CategoryId = 5,
-                            Cover = "images/vietnamese3.jpg",
-                            Price = 69500.0,
-                            PublishYear = 2023,
-                            Title = "Sống, Làm Việc Và Yêu"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Author = "ALBERT RUTHERFORD",
-                            CategoryId = 5,
-                            Cover = "images/vietnamese4.jpg",
-                            Price = 86180.0,
-                            PublishYear = 2022,
-                            Title = "Rèn Luyện Tư Duy Phản Biện"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Author = "Daniel Kahneman & Judith Guedj",
-                            CategoryId = 5,
-                            Cover = "images/vietnamese5.jpg",
-                            Price = 169000.0,
-                            PublishYear = 2023,
-                            Title = "Kế Toán Via Hè - Thực Hành Báo Cáo Tài Chính Căn Bản Từ Quầy Bán Nước Chanh"
                         });
                 });
 
@@ -493,12 +443,69 @@ namespace Week2.Migrations
                         {
                             Id = 4,
                             Name = "Medical"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Self-Help"
                         });
+                });
+
+            modelBuilder.Entity("Week2.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Week2.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -574,6 +581,36 @@ namespace Week2.Migrations
                     b.Navigation("Book");
                 });
 
+            modelBuilder.Entity("Week2.Models.Order", b =>
+                {
+                    b.HasOne("Week2.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Week2.Models.OrderDetail", b =>
+                {
+                    b.HasOne("Week2.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Week2.Models.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Week2.Models.Book", b =>
                 {
                     b.Navigation("Images");
@@ -582,6 +619,11 @@ namespace Week2.Migrations
             modelBuilder.Entity("Week2.Models.Category", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Week2.Models.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

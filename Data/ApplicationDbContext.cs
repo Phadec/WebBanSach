@@ -15,6 +15,8 @@ namespace Week2.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<BookImages> BookImages { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +32,31 @@ namespace Week2.Data
                 .HasOne(bi => bi.Book)
                 .WithMany(b => b.Images)
                 .HasForeignKey(bi => bi.BookId);
+                
+            // Configure Order relationships
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId);
+                
+            modelBuilder.Entity<OrderDetail>()
+                .HasOne(od => od.Order)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(od => od.OrderId);
+                
+            modelBuilder.Entity<OrderDetail>()
+                .HasOne(od => od.Book)
+                .WithMany()
+                .HasForeignKey(od => od.BookId);
+                
+            // Configure decimal precision
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalPrice)
+                .HasColumnType("decimal(18,2)");
+                
+            modelBuilder.Entity<OrderDetail>()
+                .Property(od => od.Price)
+                .HasColumnType("decimal(18,2)");
 
             // Seed data for categories
             modelBuilder.Entity<Category>().HasData(

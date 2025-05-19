@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "D:\\WebBanSach\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Week2.bundle.scp.css",
-      "PackagePath": "staticwebassets\\Week2.bundle.scp.css"
+      "PackagePath": "staticwebassets\\Week2.xlbab72xft.bundle.scp.css"
     },
     {
       "Id": "D:\\WebBanSach\\wwwroot\\css\\bootswatch.css",
@@ -315,6 +315,10 @@
     {
       "Id": "D:\\WebBanSach\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Week2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Week2.Microsoft.AspNetCore.StaticWebAssets.props",

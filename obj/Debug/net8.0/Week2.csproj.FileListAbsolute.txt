@@ -626,3 +626,6 @@ D:\WebBanSach\obj\Debug\net8.0\scopedcss\projectbundle\Week2.bundle.scp.css
 D:\WebBanSach\obj\Debug\net8.0\Week2.csproj.Up2Date
 D:\WebBanSach\obj\Debug\net8.0\Week2.genruntimeconfig.cache
 D:\WebBanSach\obj\Debug\net8.0\ref\Week2.dll
+D:\WebBanSach\bin\Debug\net8.0\Week2.staticwebassets.endpoints.json
+D:\WebBanSach\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\WebBanSach\obj\Debug\net8.0\staticwebassets\msbuild.Week2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props

@@ -8,26 +8,29 @@ using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Week2.Data;
 using Microsoft.EntityFrameworkCore;
+using Week2.Services;
 
 namespace Week2.Controllers
-{
-    public class ShoppingCartController : Controller
+{    public class ShoppingCartController : Controller
     {
         private readonly IBookRepository _bookRepository;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailService _emailService;
 
         public ShoppingCartController(
             IBookRepository bookRepository,
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IEmailService emailService)
         {
             _bookRepository = bookRepository;
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -131,11 +134,28 @@ namespace Week2.Controllers
                         Price = item.Price
                     };
                     order.OrderDetails.Add(orderDetail);
-                }
-                
-                // Lưu vào database
+                }                // Lưu vào database
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
+                
+                // Gửi email xác nhận đơn hàng
+                try
+                {
+                    if (!string.IsNullOrEmpty(user.Email))
+                    {
+                        await _emailService.SendOrderConfirmationEmailAsync(
+                            user.Email, 
+                            user.Name, 
+                            order.Id, 
+                            order.TotalPrice, 
+                            "send2");
+                    }
+                }
+                catch (Exception emailEx)
+                {
+                    // Log lỗi nhưng không làm gián đoạn quá trình thanh toán
+                    Console.WriteLine($"Lỗi khi gửi email: {emailEx.Message}");
+                }
                 
                 // Xóa cart
                 HttpContext.Session.Remove("Cart");

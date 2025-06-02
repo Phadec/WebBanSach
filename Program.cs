@@ -4,6 +4,7 @@ using Week2.Data;
 using Week2.Models;
 using Week2.Repositories;
 using Week2.Repositories.Interfaces;
+using Week2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +62,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Add services for repositories
 builder.Services.AddScoped<IBookRepository, EFBookRepository>();
 builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Configure app
 var app = builder.Build();
